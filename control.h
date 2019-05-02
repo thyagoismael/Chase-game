@@ -10,8 +10,9 @@ void manualMovement(t_per*);
 void movePlayers(t_game*);
 float calculateDistance(t_pos, t_pos);
 t_pos searchClosestPos(t_per player, t_pos nextPos);
-bool someoneGetsGold(t_game);
+bool someoneGetsGold(t_game*);
 void regenGold(t_pos*);
 void startGame(t_game*);
+int readInput(void);
 
 #endif
