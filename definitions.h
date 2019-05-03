@@ -12,10 +12,11 @@
 #define NUM_ACTIVE_PLAYERS 1
 #define GAME_SPEED 250
 #define SLEEP_TIME 100000 // 0.1 second
-#define SCREEN_Y 20
-#define SCREEN_X 40
-#define DIFFICULTY 40
+#define FIELD_SIZE_Y 20
+#define FIELD_SIZE_X 40
+#define DIFFICULTY 50
 #define SCORE_TO_WIN 5
+#define BORDER_SIZE 3 // prevents the player from go beyond the walls
 
 
 typedef struct position
@@ -35,5 +36,7 @@ typedef struct gameData
     t_per player[NUM_PLAYERS];
     t_pos gold;
 }t_game;
+
+typedef enum e_directions {left='a', down='s', right='d', up='w'}t_directions;
 
 #endif

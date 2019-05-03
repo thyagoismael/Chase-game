@@ -2,7 +2,22 @@
 
 int abs(int x)
 {
-    return x < 0 ? x : -x;
+    return x > 0 ? x : -x;
+}
+
+int fitOnField(int number, int axis)
+{
+    int limit = FIELD_SIZE_X - BORDER_SIZE;
+
+    if(axis == 'y')
+        limit = FIELD_SIZE_Y - BORDER_SIZE;
+
+    if(number < 1)
+        number = 1;
+    if(number >= limit)
+        number = limit;
+
+    return number;
 }
 
 bool someoneGetsGold(t_game *g)
@@ -21,8 +36,8 @@ bool someoneGetsGold(t_game *g)
 
 void regenGold(t_pos *gold)
 {
-    gold->y = rand() % SCREEN_Y;
-    gold->x = rand() % SCREEN_X;
+    gold->y = rand() % (FIELD_SIZE_Y - BORDER_SIZE) + 1;
+    gold->x = rand() % (FIELD_SIZE_X - BORDER_SIZE) + 1;
 }
 void startGame(t_game *g)
 {
@@ -32,8 +47,8 @@ void startGame(t_game *g)
     for(i = 0; i < NUM_PLAYERS; i++)
     {
         g->player[i].score = 0;
-        g->player[i].pos.y = rand() % SCREEN_Y;
-        g->player[i].pos.x = rand() % SCREEN_X;
+        g->player[i].pos.y = rand() % FIELD_SIZE_Y;
+        g->player[i].pos.x = rand() % FIELD_SIZE_X;
         g->player[i].isActive = i < NUM_ACTIVE_PLAYERS;
     }
     regenGold(&g->gold);
@@ -76,14 +91,30 @@ t_pos searchClosestPos(t_per player, t_pos target)
 
 void autoMovement(t_per *comp, t_pos gold)
 {
+    int r;
+
     if(rand() % 100 < DIFFICULTY) // efficint movement
         comp->pos = searchClosestPos(*comp, gold);
     else // random movement
     {
-        if(rand() % 2)
-            comp->pos.y += rand() % 3 - 1;
-        else
-            comp->pos.x += rand() % 3 - 1;
+        r = rand() % 5; // the four direction + stand 
+        switch(r)
+        {
+            case left:
+                comp->pos.x = fitOnField(comp->pos.x - 1, 'x');
+                break;
+            case up:
+                comp->pos.y = fitOnField(comp->pos.y - 1, 'y');
+                break;
+            case right:
+                comp->pos.x = fitOnField(comp->pos.x + 1, 'x');
+                break;
+            case down:
+                comp->pos.y = fitOnField(comp->pos.y + 1, 'y');
+                break;
+            default:
+                break;
+        }
     }
 }
 
@@ -91,7 +122,7 @@ int readInput(void)
 {
     int input = getch();
 
-    flushinp();
+    flushinp(); // clean the buffer
 
     return input;
 }
@@ -101,21 +132,17 @@ void manualMovement(t_per *player)
 
     switch(input)
     {
-        case 'a':
-            if(player->pos.x - 1 >= 0)
-                player->pos.x--;
+        case left:
+            player->pos.x = fitOnField(player->pos.x - 1, 'x');
             break;
-        case 's':
-            if(player->pos.y + 1 <= SCREEN_Y)
-                player->pos.y++;
+        case up:
+            player->pos.y = fitOnField(player->pos.y - 1, 'y');
             break;
-        case 'd':
-            if(player->pos.x - 1 <= SCREEN_X)
-                player->pos.x++;
+        case right:
+            player->pos.x = fitOnField(player->pos.x + 1, 'x');
             break;
-        case 'w':
-            if(player->pos.y - 1 >= 0)
-                player->pos.y--;
+        case down:
+            player->pos.y = fitOnField(player->pos.y + 1, 'y');
             break;
         default:
             break;

@@ -4,7 +4,6 @@
 #include "definitions.h"
 
 bool gameOver(t_per*);
-void printField(t_game g);
 void autoMovement(t_per *, t_pos);
 void manualMovement(t_per*);
 void movePlayers(t_game*);
@@ -14,5 +13,6 @@ bool someoneGetsGold(t_game*);
 void regenGold(t_pos*);
 void startGame(t_game*);
 int readInput(void);
+int fitOntField(int number, int axis);
 
 #endif
