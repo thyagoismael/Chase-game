@@ -12,7 +12,7 @@ t_pos searchClosestPos(t_per, t_pos);
 bool someoneGetsGold(t_game*);
 void regenGold(t_pos*);
 void startGame(t_game*);
-int fitOntField(int, int);
+int fitOnField(int, int);
 void changePosition(t_per*, t_directions);
 
 #endif

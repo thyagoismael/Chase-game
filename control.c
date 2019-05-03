@@ -1,10 +1,33 @@
 #include "control.h"
 
-int abs(int x)
+#define abs(x) ((x>=0)?(x):(-(x)))
+
+void startGame(t_game *g)
 {
-    return x > 0 ? x : -x;
+    int i;
+
+    srand(time(NULL));
+
+    // Creating players
+    for(i = 0; i < NUM_PLAYERS; i++)
+    {
+        g->player[i].score = 0;
+        g->player[i].pos.y = fitOnField(rand() % FIELD_SIZE_Y, 'y');
+        g->player[i].pos.x = fitOnField(rand() % FIELD_SIZE_X, 'x');
+        g->player[i].isActive = i < NUM_ACTIVE_PLAYERS;
+    }
+
+    regenGold(&g->gold);
 }
 
+void createWindows(WINDOW *listWindows[])
+{
+    listWindows[field] = newwin(FIELD_SIZE_Y, FIELD_SIZE_X, FIELD_START_Y, FIELD_START_X);
+    box(listWindows[field], 0, 0);
+    listWindows[score] = newwin(SCOREBOARD_SIZE_Y, SCOREBOARD_SIZE_X, SCOREBOARD_START_Y, SCOREBOARD_SIZE_X);
+    box(listWindows[score], 0, 0);
+
+}
 int fitOnField(int number, int axis)
 {
     int limit = FIELD_SIZE_X - BORDER_SIZE;
@@ -38,20 +61,6 @@ void regenGold(t_pos *gold)
 {
     gold->y = fitOnField(rand() % FIELD_SIZE_Y, 'y');
     gold->x = fitOnField(rand() % FIELD_SIZE_X, 'x');
-}
-void startGame(t_game *g)
-{
-    int i;
-
-    srand(time(NULL));
-    for(i = 0; i < NUM_PLAYERS; i++)
-    {
-        g->player[i].score = 0;
-        g->player[i].pos.y = fitOnField(rand() % FIELD_SIZE_Y, 'y');
-        g->player[i].pos.x = fitOnField(rand() % FIELD_SIZE_X, 'x');
-        g->player[i].isActive = i < NUM_ACTIVE_PLAYERS;
-    }
-    regenGold(&g->gold);
 }
 
 bool gameOver(t_per player[])
@@ -106,7 +115,7 @@ void autoMovement(t_per *comp, t_pos gold)
 void manualMovement(t_per *player)
 {
     int input = getch();
-   
+
     flushinp(); // clean the buffer
 
     changePosition(player, input);
