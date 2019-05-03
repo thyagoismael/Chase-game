@@ -7,28 +7,28 @@
 #include <unistd.h>
 #include <stdbool.h>
 #include <math.h>
+#include <string.h>
 
 #define NUM_PLAYERS 4
 #define NUM_ACTIVE_PLAYERS 1
 #define NUM_WINDOWS 2
-#define GAME_SPEED 200 // the lower the number, the faster is the game
+#define GAME_SPEED 80 // the lower the number, the faster it runs 
 #define DIFFICULTY 60 // percentage of difficulty
 #define SCORE_TO_WIN 5
 
 #define BORDER_SIZE 3 // prevents the player from go beyond the walls
-#define FIELD_SIZE_Y 25
-#define FIELD_SIZE_X 60
-#define SCOREBOARD_SIZE_Y FIELD_SIZE_Y
-#define SCOREBOARD_SIZE_X 20
+#define FIELD_HEIGHT 25
+#define FIELD_WIDTH 60
+#define SCOREBOARD_HEIGHT FIELD_HEIGHT
+#define SCOREBOARD_WIDTH 20
 
 #define FIELD_START_Y 0
 #define FIELD_START_X 0 
 #define SCOREBOARD_START_Y 0
-#define SCOREBOARD_START_X (FIELD_START_X + FIELD_SIZE_X + 1)
+#define SCOREBOARD_START_X (FIELD_START_X + FIELD_WIDTH + 1)
 
-#define TOTAL_SIZE_X (SCOREBOARD_START_X + SCOREBOARD_SIZE_X + 1)
-#define TOTAL_SIZE_Y FIELD_SIZE_Y + 1
-
+#define TOTAL_WIDTH (SCOREBOARD_START_X + SCOREBOARD_WIDTH + 1)
+#define TOTAL_HEIGTH FIELD_HEIGHT + 1
 
 typedef struct position
 {

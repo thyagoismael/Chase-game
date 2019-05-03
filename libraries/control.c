@@ -12,8 +12,8 @@ void startGame(t_game *g)
     for(i = 0; i < NUM_PLAYERS; i++)
     {
         g->player[i].score = 0;
-        g->player[i].pos.y = fitOnField(rand() % FIELD_SIZE_Y, 'y');
-        g->player[i].pos.x = fitOnField(rand() % FIELD_SIZE_X, 'x');
+        g->player[i].pos.y = fitOnField(rand() % FIELD_HEIGHT, 'y');
+        g->player[i].pos.x = fitOnField(rand() % FIELD_WIDTH, 'x');
         g->player[i].isActive = i < NUM_ACTIVE_PLAYERS;
     }
 
@@ -22,18 +22,18 @@ void startGame(t_game *g)
 
 void createWindows(WINDOW *listWindows[])
 {
-    listWindows[field] = newwin(FIELD_SIZE_Y, FIELD_SIZE_X, FIELD_START_Y, FIELD_START_X);
+    listWindows[field] = newwin(FIELD_HEIGHT, FIELD_WIDTH, FIELD_START_Y, FIELD_START_X);
     box(listWindows[field], 0, 0);
-    listWindows[score] = newwin(SCOREBOARD_SIZE_Y, SCOREBOARD_SIZE_X, SCOREBOARD_START_Y, SCOREBOARD_SIZE_X);
+    listWindows[score] = newwin(SCOREBOARD_HEIGHT, SCOREBOARD_WIDTH, SCOREBOARD_START_Y, SCOREBOARD_WIDTH);
     box(listWindows[score], 0, 0);
 
 }
 int fitOnField(int number, int axis)
 {
-    int limit = FIELD_SIZE_X - BORDER_SIZE;
+    int limit = FIELD_WIDTH - BORDER_SIZE;
 
     if(axis == 'y')
-        limit = FIELD_SIZE_Y - BORDER_SIZE;
+        limit = FIELD_HEIGHT - BORDER_SIZE;
 
     if(number < 1)
         number = 1;
@@ -59,8 +59,8 @@ bool someoneGetsGold(t_game *g)
 
 void regenGold(t_pos *gold)
 {
-    gold->y = fitOnField(rand() % FIELD_SIZE_Y, 'y');
-    gold->x = fitOnField(rand() % FIELD_SIZE_X, 'x');
+    gold->y = fitOnField(rand() % FIELD_HEIGHT, 'y');
+    gold->x = fitOnField(rand() % FIELD_WIDTH, 'x');
 }
 
 bool gameOver(t_per player[])
@@ -175,7 +175,7 @@ bool wantToRetry(void)
 
     refresh();
     
-    confirmWin = newwin(size_y, size_x, (FIELD_SIZE_Y - size_y)/2, (FIELD_SIZE_X - size_x)/2);
+    confirmWin = newwin(size_y, size_x, (FIELD_HEIGHT - size_y)/2, (FIELD_WIDTH - size_x)/2);
     wclear(confirmWin);
     box(confirmWin, 0, 0);
 

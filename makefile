@@ -1,2 +1,2 @@
 all:
-	gcc *.c -o exec.x -lm -lncurses -Wall -Wextra
+	gcc *.c libraries/*.c -o chase.x -lm -lncurses -Wall -Wextra

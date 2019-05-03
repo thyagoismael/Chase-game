@@ -2,11 +2,15 @@
 
 void printGame(t_game g)
 {
-    WINDOW *fieldWin, *scoreWin;
+    static bool windowsCreated = false;
+    static WINDOW *fieldWin, *scoreWin;
 
-    fieldWin = newwin(FIELD_SIZE_Y, FIELD_SIZE_X, FIELD_START_Y, FIELD_START_X);
+    if(!windowsCreated)
+    {
+        fieldWin = newwin(FIELD_HEIGHT, FIELD_WIDTH, FIELD_START_Y, FIELD_START_X);
+        scoreWin = newwin(SCOREBOARD_HEIGHT, SCOREBOARD_WIDTH, SCOREBOARD_START_Y, SCOREBOARD_START_X);
+    }
     box(fieldWin, 0, 0);
-    scoreWin = newwin(SCOREBOARD_SIZE_Y, SCOREBOARD_SIZE_X, SCOREBOARD_START_Y, SCOREBOARD_START_X);
     box(scoreWin, 0, 0);
 
     printField(g, fieldWin);
@@ -44,4 +48,12 @@ void printScore(t_game g, WINDOW *win)
     }
 
     wnoutrefresh(win);
+}
+
+void printh(WINDOW *win, int y, int width, char *text)
+{
+    int len = strlen(text);
+    int x = (width - len) / 2;
+
+    mvwprintw(win, y, x, text);
 }
