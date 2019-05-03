@@ -68,7 +68,10 @@ bool gameOver(t_per player[])
     int i;
     for(i = 0; i < NUM_PLAYERS; i++)
         if(player[i].score >= SCORE_TO_WIN)
+        {
+            player[i].turnWon++;
             return true;
+        }
     return false;
 }
 
@@ -155,4 +158,36 @@ void movePlayers(t_game *g)
 float calculateDistance(t_pos p1, t_pos p2)
 {
     return sqrt(pow((p1.x - p2.x), 2) + pow((p1.y - p2.y), 2));
+}
+
+void deleteAllScores(t_per player[])
+{
+    int i;
+    for(i = 0; i < NUM_PLAYERS; i++)
+        player[i].turnWon = player[i].score = 0;
+}
+
+bool wantToRetry(void)
+{
+    int input = 'q';
+    int size_y = 4, size_x = 12;
+    WINDOW *confirmWin;
+
+    refresh();
+    
+    confirmWin = newwin(size_y, size_x, (FIELD_SIZE_Y - size_y)/2, (FIELD_SIZE_X - size_x)/2);
+    wclear(confirmWin);
+    box(confirmWin, 0, 0);
+
+    mvwprintw(confirmWin, 1, 1, "  Retry?  ");
+    mvwprintw(confirmWin, 2, 1, " yes / no ");
+    wrefresh(confirmWin);
+
+    while(input != 'y' && input != 'n')
+    {
+        input = getch();
+        usleep(10000); // wait 10 ms
+    }
+
+    return input == 'y';
 }

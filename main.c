@@ -14,22 +14,28 @@ int main(void)
     curs_set(0);
     noecho();
 
-    startGame(&g);
-    while(!gameOver(g.player))
+    deleteAllScores(g.player);
+    while(true)
     {
-        startTime = clock();
+        startGame(&g);
+        while(!gameOver(g.player))
+        {
+            startTime = clock();
 
-        printGame(g);
-        movePlayers(&g);
+            printGame(g);
+            movePlayers(&g);
 
-        if(someoneGetsGold(&g))
-            regenGold(&g.gold);
+            if(someoneGetsGold(&g))
+                regenGold(&g.gold);
 
 
-        //getch();
-        adjustFPS(startTime);
+            //getch();
+            adjustFPS(startTime);
+        }
+
+        if(!wantToRetry())
+            break;
     }
-
     endwin();
     return 0;
 }

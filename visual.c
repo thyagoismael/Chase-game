@@ -37,7 +37,11 @@ void printScore(t_game g, WINDOW *win)
     
     mvwprintw(win, 1, 1, " -> SCORE <- ");
     for(i = 0; i < NUM_PLAYERS; i++)
+    {
         mvwprintw(win, 3 + i, 2, "Player %c: %d", 'A' + i, g.player[i].score);
+        if(g.player[i].turnWon)
+            wprintw(win, " (%d)", g.player[i].turnWon);
+    }
 
     wnoutrefresh(win);
 }

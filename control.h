@@ -14,5 +14,7 @@ void regenGold(t_pos*);
 void startGame(t_game*);
 int fitOnField(int, int);
 void changePosition(t_per*, t_directions);
+void deleteAllScores(t_per*);
+bool wantToRetry(void);
 
 #endif

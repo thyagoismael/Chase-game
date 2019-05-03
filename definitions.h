@@ -12,8 +12,8 @@
 #define NUM_ACTIVE_PLAYERS 1
 #define NUM_WINDOWS 2
 #define GAME_SPEED 80 // the lower the number, the faster is the game
-#define DIFFICULTY 70 // percentage of difficulty
-#define SCORE_TO_WIN 5
+#define DIFFICULTY 100 // percentage of difficulty
+#define SCORE_TO_WIN 1
 
 #define BORDER_SIZE 3 // prevents the player from go beyond the walls
 #define FIELD_SIZE_Y 25
@@ -40,6 +40,7 @@ typedef struct person
     int score;
     bool isActive;
     t_pos pos;
+    unsigned int turnWon;
 }t_per;
 
 typedef struct gameData
