@@ -10,13 +10,15 @@
 
 #define NUM_PLAYERS 4
 #define NUM_ACTIVE_PLAYERS 1
-#define GAME_SPEED 250
-#define SLEEP_TIME 100000 // 0.1 second
-#define FIELD_SIZE_Y 20
-#define FIELD_SIZE_X 40
-#define DIFFICULTY 50
+#define GAME_SPEED 80 // the lower the number, the faster is the game
+#define DIFFICULTY 70 // percentage of difficulty
 #define SCORE_TO_WIN 5
+
 #define BORDER_SIZE 3 // prevents the player from go beyond the walls
+#define FIELD_SIZE_Y 25
+#define FIELD_SIZE_X 60
+#define SCOREBOARD_SIZE_Y FIELD_SIZE_Y
+#define SCOREBOARD_SIZE_X 20
 
 
 typedef struct position

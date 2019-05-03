@@ -36,8 +36,8 @@ bool someoneGetsGold(t_game *g)
 
 void regenGold(t_pos *gold)
 {
-    gold->y = rand() % (FIELD_SIZE_Y - BORDER_SIZE) + 1;
-    gold->x = rand() % (FIELD_SIZE_X - BORDER_SIZE) + 1;
+    gold->y = fitOnField(rand() % FIELD_SIZE_Y, 'y');
+    gold->x = fitOnField(rand() % FIELD_SIZE_X, 'x');
 }
 void startGame(t_game *g)
 {
@@ -47,8 +47,8 @@ void startGame(t_game *g)
     for(i = 0; i < NUM_PLAYERS; i++)
     {
         g->player[i].score = 0;
-        g->player[i].pos.y = rand() % FIELD_SIZE_Y;
-        g->player[i].pos.x = rand() % FIELD_SIZE_X;
+        g->player[i].pos.y = fitOnField(rand() % FIELD_SIZE_Y, 'y');
+        g->player[i].pos.x = fitOnField(rand() % FIELD_SIZE_X, 'x');
         g->player[i].isActive = i < NUM_ACTIVE_PLAYERS;
     }
     regenGold(&g->gold);
@@ -92,45 +92,29 @@ t_pos searchClosestPos(t_per player, t_pos target)
 void autoMovement(t_per *comp, t_pos gold)
 {
     int r;
+    char possibleDir[5] = {left, up, right, down};
 
-    if(rand() % 100 < DIFFICULTY) // efficint movement
+    if(rand() % 100 < DIFFICULTY) // efficient movement
         comp->pos = searchClosestPos(*comp, gold);
     else // random movement
     {
         r = rand() % 5; // the four direction + stand 
-        switch(r)
-        {
-            case left:
-                comp->pos.x = fitOnField(comp->pos.x - 1, 'x');
-                break;
-            case up:
-                comp->pos.y = fitOnField(comp->pos.y - 1, 'y');
-                break;
-            case right:
-                comp->pos.x = fitOnField(comp->pos.x + 1, 'x');
-                break;
-            case down:
-                comp->pos.y = fitOnField(comp->pos.y + 1, 'y');
-                break;
-            default:
-                break;
-        }
+        changePosition(comp, possibleDir[r]); 
     }
 }
 
-int readInput(void)
-{
-    int input = getch();
-
-    flushinp(); // clean the buffer
-
-    return input;
-}
 void manualMovement(t_per *player)
 {
-    int input = readInput();
+    int input = getch();
+   
+    flushinp(); // clean the buffer
 
-    switch(input)
+    changePosition(player, input);
+}
+
+void changePosition(t_per *player, t_directions dir)
+{
+    switch(dir)
     {
         case left:
             player->pos.x = fitOnField(player->pos.x - 1, 'x');
