@@ -14,6 +14,7 @@
 void printGame(t_game);
 void printField(t_game, WINDOW*);
 void printScore(t_game, WINDOW*);
+void printHelp(WINDOW*);
 void printh(WINDOW*, int, int, char*);
 
 
