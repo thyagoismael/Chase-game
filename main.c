@@ -39,21 +39,24 @@ int main(void)
 
 void showStartMenu(void)
 {
-    int x = (TOTAL_WIDTH - 51) / 2; // 51 is the image width
     int y = (TOTAL_HEIGHT - 13) / 2; // 13 is the image height
-    mvprintw(y     ,  x, " ______   __");
-    mvprintw(y +  1,  x, "/      \\ /  |");
-    mvprintw(y +  2,  x, "/$$$$$$  |$$ |____    ______    _______   ______");
-    mvprintw(y +  3,  x, "$$ |  $$/ $$      \\  /      \\  /       | /      \\");
-    mvprintw(y +  4,  x, "$$ |      $$$$$$$  | $$$$$$  |/$$$$$$$/ /$$$$$$  |");
-    mvprintw(y +  5,  x, "$$ |   __ $$ |  $$ | /    $$ |$$      \\ $$    $$ |");
-    mvprintw(y +  6,  x, "$$ \\__/  |$$ |  $$ |/$$$$$$$ | $$$$$$  |$$$$$$$$/");
-    mvprintw(y +  7,  x, "$$    $$/ $$ |  $$ |$$    $$ |/     $$/ $$       |");
-    mvprintw(y +  8,  x, " $$$$$$/  $$/   $$/  $$$$$$$/ $$$$$$$/   $$$$$$$/");
-    mvprintw(y + 12,  x, "                  (1) START (1)                  ");
-    mvprintw(y + 13,  x, "                  (2) QUIT  (2)                  ");
+    WINDOW *win = newwin(TOTAL_HEIGHT, TOTAL_WIDTH, FIELD_START_Y, FIELD_START_X);
 
     refresh();
+    printh(win, y     , TOTAL_WIDTH, " ______   __                                   ");
+    printh(win, y +  1, TOTAL_WIDTH, "/      \\ /  |                                  ");
+    printh(win, y +  2, TOTAL_WIDTH, "/$$$$$$  |$$ |____    ______    _______   ______ ");
+    printh(win, y +  3, TOTAL_WIDTH, "$$ |  $$/ $$      \\  /      \\  /       | /      \\");
+    printh(win, y +  4, TOTAL_WIDTH, "$$ |      $$$$$$$  | $$$$$$  |/$$$$$$$/ /$$$$$$  |");
+    printh(win, y +  5, TOTAL_WIDTH, "$$ |   __ $$ |  $$ | /    $$ |$$      \\ $$    $$ |");
+    printh(win, y +  6, TOTAL_WIDTH, "$$ \\__/  |$$ |  $$ |/$$$$$$$ | $$$$$$  |$$$$$$$$/");
+    printh(win, y +  7, TOTAL_WIDTH, "$$    $$/ $$ |  $$ |$$    $$ |/     $$/ $$       |");
+    printh(win, y +  8, TOTAL_WIDTH, " $$$$$$/  $$/   $$/  $$$$$$$/ $$$$$$$/   $$$$$$$/");
+    printh(win, y + 12, TOTAL_WIDTH, "(1) START (1)");
+    printh(win, y + 13, TOTAL_WIDTH, "(2) QUIT  (2)");
+    printh(win, y + 17, TOTAL_WIDTH, "Developed by Thyago Ismael");
+
+    wrefresh(win);
 }
 
 int getMenuOpt(void)
