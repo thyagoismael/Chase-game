@@ -10,13 +10,13 @@
 #include <string.h>
 
 #define NUM_PLAYERS 4
-#define NUM_ACTIVE_PLAYERS 1
+#define NUM_ACTIVE_PLAYERS 1  // change it for multiplayer
 #define NUM_WINDOWS 2
-#define GAME_SPEED 80 // the lower the number, the faster it runs 
+#define GAME_SPEED 180 // the lower the number, the faster it runs 
 #define DIFFICULTY 60 // percentage of difficulty
 #define SCORE_TO_WIN 5
 
-#define BORDER_SIZE 3 // prevents the player from go beyond the walls
+#define BORDER_SIZE 2 // prevents the player from go beyond the walls
 #define FIELD_HEIGHT 25
 #define FIELD_WIDTH 60
 #define SCOREBOARD_HEIGHT FIELD_HEIGHT
@@ -28,7 +28,7 @@
 #define SCOREBOARD_START_X (FIELD_START_X + FIELD_WIDTH + 1)
 
 #define TOTAL_WIDTH (SCOREBOARD_START_X + SCOREBOARD_WIDTH + 1)
-#define TOTAL_HEIGTH FIELD_HEIGHT + 1
+#define TOTAL_HEIGHT FIELD_HEIGHT + 1
 
 typedef struct position
 {

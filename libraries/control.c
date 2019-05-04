@@ -1,6 +1,6 @@
 #include "control.h"
 
-#define abs(x) ((x>=0)?(x):(-(x)))
+#define bs(x) ((x>=0)?(x):(-(x)))
 
 void startGame(t_game *g)
 {
@@ -170,7 +170,7 @@ void deleteAllScores(t_per player[])
 bool wantToRetry(void)
 {
     int input = 'q';
-    int size_y = 4, size_x = 12;
+    int size_y = 4, size_x = 18;
     WINDOW *confirmWin;
 
     refresh();
@@ -179,8 +179,8 @@ bool wantToRetry(void)
     wclear(confirmWin);
     box(confirmWin, 0, 0);
 
-    mvwprintw(confirmWin, 1, 1, "  Retry?  ");
-    mvwprintw(confirmWin, 2, 1, " yes / no ");
+    mvwprintw(confirmWin, 1, 1, "  Play again?  ");
+    mvwprintw(confirmWin, 2, 1, "  yes  //  no  ");
     wrefresh(confirmWin);
 
     while(input != 'y' && input != 'n')

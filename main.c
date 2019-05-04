@@ -20,16 +20,14 @@ int main(void)
 
     do
     {
+        showStartMenu();
         opt = getMenuOpt();
 
         switch(opt)
         {
-            case start:
-                showStartMenu();
-                break;
-/*            case play:
+            case play:
                 opt = playGame();
-                break;*/
+                break;
             default:
                 break;
         }
@@ -41,10 +39,21 @@ int main(void)
 
 void showStartMenu(void)
 {
-    int i;
+    int x = (TOTAL_WIDTH - 51) / 2; // 51 is the image width
+    int y = (TOTAL_HEIGHT - 13) / 2; // 13 is the image height
+    mvprintw(y     ,  x, " ______   __");
+    mvprintw(y +  1,  x, "/      \\ /  |");
+    mvprintw(y +  2,  x, "/$$$$$$  |$$ |____    ______    _______   ______");
+    mvprintw(y +  3,  x, "$$ |  $$/ $$      \\  /      \\  /       | /      \\");
+    mvprintw(y +  4,  x, "$$ |      $$$$$$$  | $$$$$$  |/$$$$$$$/ /$$$$$$  |");
+    mvprintw(y +  5,  x, "$$ |   __ $$ |  $$ | /    $$ |$$      \\ $$    $$ |");
+    mvprintw(y +  6,  x, "$$ \\__/  |$$ |  $$ |/$$$$$$$ | $$$$$$  |$$$$$$$$/");
+    mvprintw(y +  7,  x, "$$    $$/ $$ |  $$ |$$    $$ |/     $$/ $$       |");
+    mvprintw(y +  8,  x, " $$$$$$/  $$/   $$/  $$$$$$$/ $$$$$$$/   $$$$$$$/");
+    mvprintw(y + 12,  x, "                  (1) START (1)                  ");
+    mvprintw(y + 13,  x, "                  (2) QUIT  (2)                  ");
 
-    for(i = 0; i < IMAGE_HEIGHT; i++)
-        mvprintw(i, 0, image[i]);
+    refresh();
 }
 
 int getMenuOpt(void)
